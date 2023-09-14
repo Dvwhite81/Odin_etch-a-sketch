@@ -1,0 +1,16 @@
+body {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+h1 {
+    margin: 0 auto;
+}
+
+.square {
+    border: 1px solid black;
+    height: 2rem;
+    width: 2rem;
+}
