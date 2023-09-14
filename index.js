@@ -2,12 +2,17 @@ const body = document.querySelector("body");
 let size = 16;
 let color = "black";
 
-function setupGame() {
+function setupGame(size) {
+  resetScreen();
   createHeading();
   createPopup();
   createContainer();
   createGrid(size);
   addListeners();
+}
+
+function resetScreen() {
+    body.innerHTML = '';
 }
 
 function createHeading() {
@@ -53,7 +58,7 @@ function createSection() {
   inputArea.placeholder = "What size?";
 
   const submitInput = document.createElement("button");
-  submitInput.className = "btn";
+  submitInput.className = "btn submit-input";
   submitInput.textContent = "Submit";
 
   section.appendChild(inputArea);
@@ -84,6 +89,8 @@ function closeModal() {
 function createContainer() {
   const container = document.createElement("div");
   container.id = "container";
+  container.style.height = '80vh';
+  container.style.width = '80vw';
   body.appendChild(container);
 }
 
@@ -98,8 +105,6 @@ function createGrid(size) {
     const square = document.createElement("div");
     square.className = "square";
     square.style.border = "1px solid black";
-    square.style.height = "1.5rem";
-    square.style.width = "1.5rem";
 
     container.appendChild(square);
   }
@@ -115,14 +120,26 @@ function addListeners() {
     });
   });
 
-  const modal = document.querySelector(".modal");
   const overlay = document.querySelector(".overlay");
   const openModalBtn = document.querySelector(".modal-btn");
   const closeModalBtn = document.querySelector(".btn-close");
+  const submitBtn = document.querySelector(".submit-input");
 
   openModalBtn.addEventListener("click", openModal);
   closeModalBtn.addEventListener("click", closeModal);
   overlay.addEventListener("click", closeModal);
+  submitBtn.addEventListener("click", getInput);
 }
 
-setupGame();
+function getInput() {
+    const inputArea = document.getElementById('size-input');
+    const newSize = inputArea.value;
+    if (newSize > 100) {
+        alert('Size must be less than 100');
+    }
+    else {
+        setupGame(newSize);
+    }
+}
+
+setupGame(size);
